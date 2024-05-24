@@ -1,0 +1,606 @@
+@font-face {
+    font-family: Inter;
+    src: url(../fonts/Inter/Inter-VariableFont_slnt\,wght.ttf)
+}
+
+/* header */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 10%;
+    /*background-color: rgba(155, 250, 186, 0.327);*/
+    z-index: 7;
+    display: flex;
+    transition: 0.5s;
+    margin-top: 40px;
+    flex-wrap: wrap;
+    align-items: center;
+    padding-left: 10vh;
+    justify-content: space-around;
+}
+.logo {
+    /* position: absolute; */
+    /* margin-left: 12%;
+    margin-top: 0%; */
+}
+.logo img{
+    /* width: 10vh; */
+    max-width: 10vh;
+    min-width: 5vh;
+    
+}
+
+.links {
+    /* margin-left: 60%; */
+    display: flex;
+    gap: 60px;
+}
+
+.links a{
+    font-family: Inter;
+    font-weight: 300;
+    font-size: 1.1vw;
+    text-decoration: none;
+    color: #e6e6e6;
+    transition: color 0.5s;
+    cursor: pointer;
+}
+.links a:hover {
+    color: rgb(64, 250, 101);
+}
+  
+/* video demo */
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    /* height: 100%; */
+    /* overflow-x: hidden; */
+}
+
+.video_demo {
+    position: relative;
+    width: 100%;
+    height: 100vh; /* Высота экрана */
+    overflow: hidden;
+    z-index: 1;
+}
+
+.video_demo video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+}
+
+.video_demo .text {
+    position: absolute;
+    left: 80px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+    color: white;
+}
+
+.text p {
+    font-family: Inter;
+    line-height: 12vh;
+    font-weight: 300;
+    font-size: 4vw;
+    color: white;
+}
+
+
+/* block with text */
+.content {
+    font-family: Inter;
+    margin-top: 10vh;
+    /* position: absolute; */
+    left: 0;
+    right: 0;
+    background-color: rgb(255, 250, 250);
+    z-index: 2;
+}
+
+    /* block1 */
+.block1 {
+    display: flex;
+    font-family: Inter;
+    font-size: 1vw;
+    /* height: 55vh; */
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-bottom: 10vh;
+}
+
+.block1 .text1 p{
+    line-height: 4vh;
+    font-size: 1.2vw;
+    color: rgb(0, 0, 0);
+    width: 600px;
+    margin-bottom: 20vh;
+    /* height: 300px; */
+}
+
+
+.block1 .img2{
+    margin-top: 10vh;
+    /* margin-top: -650px;
+    margin-left: 1100px; */
+}
+.block1 img{
+    height: 50vh;
+}
+
+#scrollImage {
+    position: relative;
+    transition: transform 0.1s;
+}
+
+/* block2 with text and photo */
+.block2 {
+    display: flex;
+    font-family: Inter;
+    font-size: 1.2vw;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    flex-direction: row-reverse;
+    margin-bottom: 10vh;
+}
+
+.block2_text {
+    width: 50vh;
+    line-height: 4vh;
+    position: relative; /* Добавлено для относительного позиционирования псевдоэлемента */
+    padding-left: 20px;
+}
+.block2_text p::before {
+    content: '';
+    position: absolute;
+    top: 7.5%;
+    left: 0;
+    width: 10px; /* Диаметр кружочка */
+    height: 10px; /* Диаметр кружочка */
+    background-color: green; /* Цвет кружочка */
+    border-radius: 50%; /* Делает кружок круглым */
+    transform: translateY(-50%); /* Центрирует кружок по вертикали */
+}
+.block2_img {
+    display: flex;
+    margin-top: -10vh;
+    position: relative; 
+}
+
+.img_right {
+    position: absolute;
+    width: 30vh;
+    margin-top: 20vh;
+    margin-left: 35vh;
+}
+
+.img_left {
+    width: 47vh;
+    height: 40vh;
+    object-fit: cover;
+}
+
+#img_left, #img_right {
+    transition: transform 0.1s;
+}
+/* block3 video and line text */
+
+.text_none{
+    display: none;
+    position: absolute;
+}
+.block3{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 135vh;
+}
+
+
+.block3_video{
+    border-radius: 10vh;
+    width: 90%;
+    /* height: 170vh; */
+    overflow: hidden;
+    object-fit: cover;
+    position: absolute;
+    /* top: 0; */
+    /* left: 0; */
+    height: 110%;
+    z-index: -1;
+}
+.block3_video video{
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+.block3_video_transition{
+    transition: width 0.5s ease, transform 0.5s ease;
+}
+.block3_video_transition_fast{
+    transition: width 0.5s ease, transform 0.1s ease;
+}
+
+
+
+.text_none {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    height: 100%; /* Задайте высоту контейнера по вашему усмотрению */
+    opacity: 0;
+}
+
+.overlay_wrapper {
+    display: flex;
+    overflow: hidden;
+    width: 100%;
+    margin-top: 40vh;
+    position: absolute;
+    opacity: 0.9;
+}
+
+.overlay_text {
+    display: flex;
+    gap: 2vh;
+    animation: moveText 40s linear infinite;
+}
+
+.moving_text {
+    display: inline-block;
+    white-space: nowrap;
+    padding-right: 2vw; /* Разделение между копиями текста */
+    font-family: Inter;
+    font-weight: 500;
+    font-size: 15vw;
+    transition: opacity 0.5s ease;
+    animation: coloranim 25s linear infinite;
+    background: linear-gradient(to right, #97f94d, #f5ef55); /* Начальный градиент */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: -33px;
+}
+
+
+@keyframes moveText {
+    0% {
+        transform: translateX(-25%);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+@keyframes coloranim {
+    0% {
+        background: linear-gradient(to right, #bcf78f, #e1df8c); 
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    50% {
+        background: linear-gradient(to right, #93eca6, #ffe492); 
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    80% {
+        background: linear-gradient(to right, #def787, #e8fc55); 
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    100% {
+        background: linear-gradient(to right, #bbfc89, #fffb8f); 
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+}
+#block3_text_lines {
+    width: 100%;
+    z-index: 5;
+    position: absolute;
+    transition: width 0.5s ease, transform 0.1s ease;
+}
+
+/* block4 text img */
+
+.block4{
+    background-color: black;
+    z-index: 6;
+    width: 100%;
+    height: 400vh;
+    position: absolute;
+    transition: width 0.5s ease, transform 0.5s ease;
+    border-radius: 4vh;
+}
+
+.block4_imgs{
+    display: flex;
+    justify-content: space-around;
+    padding-left: 10vh;
+    padding-right: 10vh;
+   
+}
+.block4_img1 img, .block4_img2 img{
+    width: 70vh;
+}
+.block4_img1 p, .block4_img2 p{
+    width: 70vh;
+    font-family: Inter;
+    font-weight: 200;
+    font-size: 1.2vw;
+    color: white;
+    line-height: 2vw;
+}
+.block4_img1 {
+    overflow: hidden;
+    margin-right: 210vh;
+    margin-top: 20vh;
+    transition: margin-right 0.5s ease;
+}
+
+.block4_img1.active {
+    margin-right: 0;
+}
+.block4_img2{
+    overflow: hidden;
+    margin-left: 210vh;
+    margin-top: 40vh;
+    transition: margin-left 0.5s ease;
+}
+.block4_img2.active {
+    margin-left: -10vh;
+}
+
+.block4_title{
+    margin-top: 30vh;
+    display: flex;
+    justify-content: center;
+}
+.block4_title h1{
+    font-family: Inter;
+    font-size: 5vw;
+}
+.shadow_title{
+    position: absolute;
+    margin-top: -10vh;
+    color: transparent;
+    -webkit-text-stroke: 1px rgb(240, 240, 240);
+    transition: font-size 0.5s ease, transform 0.5s ease;
+    
+}
+.shadow_title::before, 
+.shadow_title::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: transparent;
+    -webkit-text-stroke: 1px rgb(240, 240, 240);
+}
+
+.shadow_title::before {
+    transform: translate(0, 10px);
+}
+
+.shadow_title::after {
+    transform: translate(0, 20px);
+}
+
+body::-webkit-scrollbar{
+    display: none;
+}
+
+/* block5 form */
+
+.block5 {
+    margin-top: 10vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    transition: width 0.5s ease, transform 0.5s ease;
+}
+.block5_title{
+    line-height: 1;
+}
+.block5_auth_form {
+    display: flex;
+    justify-content: center;
+    width: 40%;
+    height: 80vh;
+    border: 1px solid #ccc;
+    transition: transform 1s ease, opacity 1s ease;
+    transform: rotateY(-90deg); /* начальное состояние (закрыто) */
+    opacity: 0;
+    border-radius: 1vh;
+}
+
+.block5_auth_form.active {
+    transform: rotateY(0); /* состояние при активации (открыто) */
+    opacity: 1;
+}
+.block5_auth_form_block{
+    padding: 10vh;
+}
+
+.title_text{
+    font-family: Inter;
+    font-size: 2vw;
+    color: white;
+    font-weight: 300;
+}
+.title_text_design {
+    display: inline-block;
+    white-space: nowrap;
+    padding-right: 2vw;
+    font-family: Inter;
+    font-weight: 500;
+    font-size: 15vw;
+    transition: opacity 0.5s ease;
+    animation: coloranim 25s linear infinite;
+    background: linear-gradient(to right, #97f94d, #f5ef55);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: -30px;
+}
+
+.text_block{
+    width: 40vh;
+    height: 10vh;
+    color: white;
+    font-family: Inter;
+    font-size: 3vw;
+}
+.block5_auth_form_block form{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3vh;
+    width: 60vh;
+    height: 100%;
+    align-content: center;
+    justify-content: center;
+}
+.block5_auth_form_block form input{
+    width: 100%;
+    height: 7vh;
+    background-color: black;
+    border: none;
+    border-bottom: solid 0.1vh white;
+    outline: none;
+}
+
+.block5_auth_form_block form input:focus {
+    /* border: none; */
+    outline: none;
+    transition: 1s ease;
+    animation: lines 1s linear 1 alternate;
+}
+
+@keyframes lines {
+    0% {
+        border-top: solid 0.1vh transparent;
+        border-left: solid 0.1vh transparent;
+        border-bottom: solid 0.1vh white;
+        border-right: solid 0.1vh transparent;
+    }
+    25% {
+        border-top: solid 0.1vh transparent;
+        border-left: solid 0.1vh white;
+        border-bottom: solid 0.1vh transparent;
+        border-right: solid 0.1vh transparent;
+    }
+    50% {
+        border-top: solid 0.1vh white;
+        border-left: solid 0.1vh transparent;
+        border-bottom: solid 0.1vh transparent;
+        border-right: solid 0.1vh transparent;
+    }
+    75% {
+        border-top: solid 0.1vh transparent;
+        border-left: solid 0.1vh transparent;
+        border-bottom: solid 0.1vh transparent;
+        border-right: solid 0.1vh white;
+    }
+    100% {
+        border-top: solid 0.1vh transparent;
+        border-left: solid 0.1vh transparent;
+        border-bottom: solid 0.1vh white;
+        border-right: solid 0.1vh transparent;
+    }
+}
+
+.block5_auth_form_block form input::placeholder{
+    font-family: Inter;
+    font-size: 1.2vw;
+    color: white;
+    font-weight: 300;
+}
+.block5_auth_form_block form input{
+    font-family: Inter;
+    font-size: 1.2vw;
+    color: white;
+    font-weight: 300;
+}
+.block5_auth_form_block form button {
+    width: 50%;
+    height: 5vh;
+    border: solid 0.1vh white;
+    color: white;
+    background-color: black;
+    font-family: Inter;
+    font-size: 1.2vw;
+    position: relative; /* Установим родительский элемент как relative */
+}
+
+.block5_auth_form_block form button::before {
+    content: '';
+    position: absolute;
+    bottom: -1.2vh;
+    left: 5%;
+    width: 90%;
+    height: 7vh;
+    border: solid transparent; /* Сделать границу псевдоэлемента прозрачной */
+    border-width: 0.2vh; /* Задать толщину границы */
+    border-image: linear-gradient(to right, #97f94d, #f5ef55); /* Задать градиентную границу */
+    border-image-slice: 1;
+    opacity: 0;
+    transition: opacity 0.3s;
+    filter: blur(3px);
+    z-index: -1;
+
+}
+
+.block5_auth_form_block form button:hover::before {
+    opacity: 1;
+}
+
+.block5_auth_form_title{
+    font-family: Inter;
+    font-size: 2vw;
+    color: white;
+}
+
+/* block6 about us */
+
+.block6{
+    position: absolute;
+    width: 100%;
+    height: 110vh;
+    background-color: white;
+    z-index: 6;
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 50vh;
+    justify-content: center;
+    align-content: space-between;
+}
+.block6_title{
+    font-family: Inter;
+    font-size: 2vw;
+    font-weight: 400;
+    color: black;
+}
+.block6_all_text{
+    display: flex;
+    font-family: Inter;
+    font-size: 1.2vw;
+    font-weight: 300;
+    color: black;
+    margin-bottom: 30vh;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    width: 100%;
+    align-items: center;
+}
+.block6_all_text p{
+    width: 50vh;
+    line-height: 1.5;
+}

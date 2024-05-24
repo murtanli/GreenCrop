@@ -1,0 +1,168 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/main_css.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script src="/static/js/scroll.js"></script>
+    <script src="/static/js/line_text.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
+    <title>{{ title }}</title>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="{% static 'images/icon.png' %}" alt="Logo">
+        </div>
+        <div class="links">
+            <a id="about_us">О нас</a>
+            <div>
+                <a href="#">Авторизация</a>
+                <a>/</a>
+                <a id="sign_in">Регистрация</a>
+            </div>
+            
+            <a id="interface">Интерфейс</a>
+            <a href="#">Контакты</a>
+        </div>
+    </header>
+    <div class="video_demo">
+        <video id="myVideo" src="{% static 'images/Untitled2.mp4' %}" autoplay muted loop></video>
+        <div class="text">
+            <p>
+                "Умная Теплица: Взгляд в <br>
+                Зеленое Будущее"
+            </p>
+        </div>
+    </div>
+    <div class="content">
+        <div id="block2" class="block1">
+            <div class="text1">
+                <p>
+                    GreenCrop <span style="color: rgba(0, 149, 45, 1);">Innovators</span> предоставляет <br>
+                    инновационные решения для сельского <br>
+                    хозяйства, призванные увеличить урожайность <br>
+                    и оптимизировать производственные процессы. <br> 
+                </p>
+                <p>
+                    Наша компания предоставляет <br>
+                    высококачественные продукты и системы, <br>
+                    специально разработанные для сельского <br>
+                    хозяйства и умных теплиц. Наши решения <br>
+                    обеспечивают высший уровень качества для <br>
+                    успешного выращивания растений. <br>
+                </p>
+            </div>
+            <div class="img2">
+                <img id="scrollImage" src="{% static 'images/imm_gr.jpg' %}" alt="Image">
+            </div>
+        </div>
+        <div class="block2">
+            <div class="block2_text">
+                <p>Имея обширный опыт работы с автоматизированными теплицами, включая управление климатом, системы орошения и мониторинг состояния растений, мы постоянно стремимся к постоянному совершенствованию и своевременной доставке высококачественных решений для сельского хозяйства.</p>
+            </div>
+            <div class="block2_img">
+                <img id="img_left" class="img_left" src="{% static 'images/istockphoto.jpg' %}" alt="">
+                <img id="img_right" class="img_right" src="{% static 'images/Greenhouse-Installations.png' %}" alt="">
+            </div>
+        </div>
+        <div class="block3">
+            <div id="block3_video" class="block3_video">
+                <video  src="{% static 'images/Untitled2.mp4' %}" autoplay muted loop></video>
+            </div>
+            <div id="block3_text_lines">
+                <div id="text_moving" class="text_none">
+                <div class="overlay_text">
+                    <div class="moving_text">Инновации для вашего урожая</div>
+                    <div class="moving_text">Инновации для вашего урожая</div>
+                    <div class="moving_text">Инновации для вашего урожая</div>
+                    <div class="moving_text">Инновации для вашего урожая</div>
+                    <div class="moving_text">Инновации для вашего урожая</div>
+                    <div class="moving_text">Инновации для вашего урожая</div>
+                    <div class="moving_text">Инновации для вашего урожая</div>
+                    <div class="moving_text">Инновации для вашего урожая</div>
+                    <div class="moving_text">Инновации для вашего урожая</div>
+                    <div class="moving_text">Инновации для вашего урожая</div>
+                    <div class="moving_text">Инновации для вашего урожая</div>
+                    <div class="moving_text">Инновации для вашего урожая</div>
+                    <div class="moving_text">Инновации для вашего урожая</div>
+                </div>
+                
+                </div>
+                <div style="width : 65%; rotate: 308deg;z-index: 3;transform: rotate3d(1, 1, 1, 8deg);" id="text_moving" class="overlay_wrapper">
+                    <div class="overlay_text">
+                        <div class="moving_text">Инновации для вашего урожая</div>
+                        <div class="moving_text">Инновации для вашего урожая</div>
+                        <div class="moving_text">Инновации для вашего урожая</div>
+                        <div class="moving_text">Инновации для вашего урожая</div>
+                        <div class="moving_text">Инновации для вашего урожая</div>
+                        <div class="moving_text">Инновации для вашего урожая</div>
+                        <div class="moving_text">Инновации для вашего урожая</div>
+                        <div class="moving_text">Инновации для вашего урожая</div>
+                        <div class="moving_text">Инновации для вашего урожая</div>
+                        <div class="moving_text">Инновации для вашего урожая</div>
+                        <div class="moving_text">Инновации для вашего урожая</div>
+                        <div class="moving_text">Инновации для вашего урожая</div>
+                        <div class="moving_text">Инновации для вашего урожая</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="block4" class="block4">
+            <div class="block4_title">
+                <div id="title_anchor" class="block4_title_design">
+                    <h1 style="color: white;">Интерфейс мониторинга</h1>
+                    <h1 data-text="Интерфейс мониторинга" id="shadow_title" class="shadow_title">Интерфейс мониторинга</h1>
+                </div>
+                
+            </div>
+            <div id="block4_imgs_id" class="block4_imgs">
+                <div id="block4_img1_id" class="block4_img1">
+                    <img src="{% static 'images/demo_1.png' %}" alt="">
+                    <p>Наш новый интерфейс разработан с учетом современных тенденций дизайна и удобства использования. Мы стремимся обеспечить максимальную интуитивность и доступность всех функций, чтобы каждый пользователь мог легко и быстро найти нужную информацию.</p>
+                </div>
+                <div id="block4_img2_id" class="block4_img2">
+                    <img src="{% static 'images/demo_2.png' %}" alt="">
+                    <p>Включает удобную навигацию, яркие визуальные элементы и интеграцию с новейшими технологиями. Независимо от устройства, которым вы пользуетесь, наш интерфейс адаптируется к любому экрану, предоставляя вам лучший опыт взаимодействия с сайтом.</p>
+                </div>
+            </div>
+            <div id="block5" class="block5">
+                <div class="block5_title">
+                    <div class="title_text">
+                        <h1 class="title_text_design">Регистрация</h1>
+                    </div>
+                </div>
+                <div id="block5_auth_form" class="block5_auth_form">
+                    <div class="block5_auth_form_block">
+                        <form action="">
+                            <h1 class="block5_auth_form_title">Зарегестрируйтесь сейчас</h1>
+                            <div class="text_block">
+                                <!-- <label for="email">Email</label> -->
+                                <input type="email" name="email" id="email" placeholder="Email">
+                            </div>
+                            <div class="text_block">
+                                <!-- <label for="password">Пароль</label> -->
+                                <input type="password" name="password" id="password" placeholder="Пароль">
+                            </div>
+                            <button>Зарегестрироваться</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div id="block6" class="block6">
+                <div class="block6_title">
+                    <h1>О нас</h1>
+                </div>
+                <div class="block6_all_text">
+                    <p>Мы - команда преданных своему делу энтузиастов, работающих над инновациями в сфере сельского хозяйства. Наша основная миссия - внедрение передовых технологий в автоматизированные теплицы, которые помогают улучшить производительность и устойчивость сельскохозяйственных систем. Мы верим, что будущее сельского хозяйства лежит в интеграции современных технологий и умных решений.</p>
+                    <p>Мы занимаемся разработкой и внедрением систем автоматизации для теплиц, которые включают управление климатом, ирригационные системы, мониторинг и анализ данных, а также управление питанием растений. Наши решения помогают фермерам создавать идеальные условия для роста культур, экономить ресурсы и повышать урожайность. Мы стремимся сделать сельское хозяйство более эффективным и экологически чистым, обеспечивая устойчивое будущее для всех.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>
