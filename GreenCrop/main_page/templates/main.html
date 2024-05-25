@@ -19,8 +19,8 @@
         </div>
         <div class="links">
             <a id="about_us">О нас</a>
-            <div>
-                <a href="#">Авторизация</a>
+            <div class="links_auth">
+                <a href="{% url 'auth_page' %}">Авторизация</a>
                 <a>/</a>
                 <a id="sign_in">Регистрация</a>
             </div>
@@ -29,6 +29,21 @@
             <a href="#">Контакты</a>
         </div>
     </header>
+    {% if messages %}
+        <div class="message_block">
+            <div class="message">
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+                <div class="close_message">
+                    <button onclick="closeMessageBlock()">закрыть</button>
+                </div>
+            </div>
+        </div>
+        
+    {% endif %}
     <div class="video_demo">
         <video id="myVideo" src="{% static 'images/Untitled2.mp4' %}" autoplay muted loop></video>
         <div class="text">
@@ -38,7 +53,7 @@
             </p>
         </div>
     </div>
-    <div class="content">
+    <div class="content">               
         <div id="block2" class="block1">
             <div class="text1">
                 <p>
@@ -137,18 +152,21 @@
                 </div>
                 <div id="block5_auth_form" class="block5_auth_form">
                     <div class="block5_auth_form_block">
-                        <form action="">
+                        <form method="post" action="{% url 'sign_in' %}">
+                            {% csrf_token %}
                             <h1 class="block5_auth_form_title">Зарегестрируйтесь сейчас</h1>
                             <div class="text_block">
-                                <!-- <label for="email">Email</label> -->
+                                <input type="text" name="login" id="login" placeholder="Логин">
+                            </div>
+                            <div class="text_block">
                                 <input type="email" name="email" id="email" placeholder="Email">
                             </div>
                             <div class="text_block">
-                                <!-- <label for="password">Пароль</label> -->
                                 <input type="password" name="password" id="password" placeholder="Пароль">
                             </div>
                             <button>Зарегестрироваться</button>
                         </form>
+                        <a class="block5_link" href="{% url 'auth_page' %}">Есть аккаунт? авторизация</a>
                     </div>
                 </div>
             </div>
@@ -164,5 +182,13 @@
         </div>
 
     </div>
+    
 </body>
+<script>
+    function closeMessageBlock() {
+        var mesBlock = document.querySelector('.message_block');
+        mesBlock.classList.remove('message_block');
+        mesBlock.classList.add('message_block_none');
+    }
+</script>
 </html>

@@ -14,7 +14,7 @@ header {
     z-index: 7;
     display: flex;
     transition: 0.5s;
-    margin-top: 40px;
+    margin-top: 4vh;
     flex-wrap: wrap;
     align-items: center;
     padding-left: 10vh;
@@ -33,11 +33,16 @@ header {
 }
 
 .links {
-    /* margin-left: 60%; */
     display: flex;
-    gap: 60px;
+    gap: 6vh;
+    align-items: center;
+    align-content: center;
+    flex-wrap: wrap;
 }
-
+.links_auth{
+    display: flex;
+    align-items: center;
+}
 .links a{
     font-family: Inter;
     font-weight: 300;
@@ -164,8 +169,8 @@ body, html {
     position: absolute;
     top: 7.5%;
     left: 0;
-    width: 10px; /* Диаметр кружочка */
-    height: 10px; /* Диаметр кружочка */
+    width: 1.2vh; /* Диаметр кружочка */
+    height: 1.2vh; /* Диаметр кружочка */
     background-color: green; /* Цвет кружочка */
     border-radius: 50%; /* Делает кружок круглым */
     transform: translateY(-50%); /* Центрирует кружок по вертикали */
@@ -179,7 +184,7 @@ body, html {
 .img_right {
     position: absolute;
     width: 30vh;
-    margin-top: 20vh;
+    margin-top: 18vh;
     margin-left: 35vh;
 }
 
@@ -267,7 +272,7 @@ body, html {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    letter-spacing: -33px;
+    letter-spacing: -3.3vh
 }
 
 
@@ -449,7 +454,7 @@ body::-webkit-scrollbar{
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    letter-spacing: -30px;
+    letter-spacing: -3vh
 }
 
 .text_block{
@@ -566,6 +571,8 @@ body::-webkit-scrollbar{
     font-family: Inter;
     font-size: 2vw;
     color: white;
+    position: absolute;
+    margin-top: -1vh;
 }
 
 /* block6 about us */
@@ -603,4 +610,73 @@ body::-webkit-scrollbar{
 .block6_all_text p{
     width: 50vh;
     line-height: 1.5;
+}
+
+.block5_link{
+    text-decoration: none;
+    color: white;
+    font-family: Inter;
+    font-size: 2vw;
+    display: flex;
+    justify-content: center;
+    transition: color 1s ease;
+}
+.block5_link:hover{
+    color: rgb(183, 255, 0);
+}
+
+
+
+.message_block_none{
+    display: none;
+}
+.message_block{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(0 0 0 / 80%);
+    z-index: 999;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+.close_message button{
+    font-family: Inter;
+    font-size: 1.2vw;
+    width: 25vh;
+    height: 6vh;
+    color: white;
+    border: none;
+    background-color: rgb(0 0 0);
+    transition: 0.4s ease;
+    border-radius: 2vh;
+}
+.close_message button:hover{
+    background-color: rgb(232 232 232);
+    color: black;
+}
+.close_message {
+    margin-bottom: 10vh;
+}
+.message{
+    display: flex;
+    width: 50vh;
+    background-color: #ffffff45;
+    border-radius: 2vh;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.messages{
+    padding: 5vh;
+}
+.messages li{
+    font-family: Inter;
+    font-size: 1vw;
+    font-weight: 400;
+    color: white;
+    line-height: 1.4;
+}
+.messages li::marker{
+    color: black;
 }

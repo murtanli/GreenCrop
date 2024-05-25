@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (scrollPosition < 200) {
             element.style.top = '0px';
         } else {
-            element.style.top = '-45px';
+            element.style.top = '-4.5vh';
         }
         // if (currentScrollY > 1900 && currentScrollY < 4200) {
         //     element.style.backgroundColor = 'rgba(215,252,210, 0)';
