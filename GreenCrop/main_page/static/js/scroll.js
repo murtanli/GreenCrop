@@ -99,10 +99,15 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Добавление слушателя событий для ссылки регистрации в хедере
-    document.getElementById('sign_in').addEventListener('click', function(event) {
+    try{
+        document.getElementById('sign_in').addEventListener('click', function(event) {
         event.preventDefault();  
         scrollToElement('block5_auth_form');
-    });
+        });
+    } catch {
+        
+    }
+    
     document.getElementById('about_us').addEventListener('click', function(event) {
         event.preventDefault();  
         scrollToElement('block6');
