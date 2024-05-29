@@ -1,0 +1,339 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<head>
+    <link rel="stylesheet" href="{% static 'css/greenhouse_info_css.css' %}">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"/>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/scrollbar.js"></script>
+    <script src="https://code.highcharts.com/modules/navigator.js"></script>
+</head>
+<div class="patch">
+    <p>{{ patch }}</p>
+</div>
+<div class="content">
+    <div class="block1_widgets_map">
+        <div class="block_widgets">
+            <div class="total_grhs">
+                <img src="{% static 'images/greenhouse.png' %}" alt="">
+                <p>Номер теплицы</p>
+                <p style="font-size: 1.6vw;">{{ gr_num }}</p>
+            </div>
+            <div class="total_sowing">
+                <img src="{% static 'images/sowing.png' %}" alt="">
+                <p>Посажено</p>
+                <p style="font-size: 1.6vw;">{{ sowing }}</p>
+            </div>
+            <div class="total_water_usage">
+                <img src="{% static 'images/kaply.png' %}" alt="">
+                <p>Всего воды (литр)</p>
+                <p style="font-size: 1.6vw;">{{ gr_water }}</p>
+            </div>
+            <div class="total_alerts">
+                <img src="{% static 'images/alert.png' %}" alt="">
+                <p>Всего уведомлений</p>
+                <p style="font-size: 1.6vw;">{{ all_alerts }}</p>
+            </div>
+            <div class="total_energy_usage">
+                <img src="{% static 'images/energy.png' %}" alt="">
+                <p>Потребляемая энергия</p>
+                <p style="font-size: 1.6vw;">{{ gr_energy }}</p>
+            </div>
+            <div class="all_area">
+                <img src="{% static 'images/area.png' %}" alt="">
+                <p>Общая площадь (м2)</p>
+                <p style="font-size: 1.6vw;">{{ gr_area }}</p>
+            </div>
+        </div>
+        <div class="map_view">
+            <div class="map-container">
+                <select id="city-select" class="select_style">
+                    <option value="">Выберите город</option>
+                    <option value="kazan">Казань</option>
+                    <option value="moscow">Москва</option>
+                    <option value="tat">Республика Татарстан</option>
+                </select>
+                <div id="map" style="width: 100%; height: 50vh;">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="block2_all_gr_hs_graphics">
+        <div class="all_gr_hs">
+            <div class="block2_title">
+                <p>Графики</p>
+            </div>
+            <div class="gr_hss">
+                <div class="rer">
+                    <div id="chartContainer-temperature"></div>
+                    <div id="chartContainer-humidity"></div>
+                    <div id="chartContainer-water"></div>
+                    <div id="chartContainer-energy"></div>
+                    <div id="chartContainer-soil_moisture"></div>
+                    <!-- Добавьте остальные контейнеры для других полей -->
+                </div>
+            </div>
+    </div>
+   
+    <!-- <div class="block2_all_gr_hs">
+        <div class="all_gr_hs">
+            <div class="block2_title">
+                <p>Теплицы</p>
+            </div>
+            <div class="gr_hss">
+                {% for greenhouse in greenhouses %}
+                    <div class="greenhouse">
+                        <div class="title_img" style="z-index: 3;">
+                            <div class="gr_num">
+                                <a href="">Теплица - {{ greenhouse.greenhouse_info.pk }}</a>
+                            </div>
+                            <img src="{% static 'images/templ.png' %}" alt="">
+                        </div>
+                        <div class="registers_block">
+                            <div class="registers_nums">
+                                <div class="block_water">
+                                    <img src="{% static 'images/kaply-black.png' %}" alt="">
+                                    <p>{{ greenhouse.register.water }}</p>
+                                </div>
+                                <div class="block_temp">
+                                    <img src="{% static 'images/temp.png' %}" alt="">
+                                    <p>{{ greenhouse.register.temperature }}</p>
+                                </div>
+                                <div class="block_soil_moisture">
+                                    <img src="{% static 'images/zeml.png' %}" alt="">
+                                    <p>{{ greenhouse.register.soil_moisture }}</p>
+                                </div>
+                                <div class="block_air_humidity">
+                                    <img src="{% static 'images/weter.png' %}" alt="">
+                                    <p>{{ greenhouse.register.air_humidity }}</p>
+                                </div>
+                                <div class="block_energy_usage">
+                                    <img src="{% static 'images/energy-black.png' %}" alt="">
+                                    <p>{{ greenhouse.register.energy_usage }}</p>
+                                </div>
+                            </div>
+                            <div class="controls">
+                                <div class="control-item">
+                                    <label class="switch">
+                                        <input type="checkbox" class="control-checkbox" data-greenhouse-id="{{ greenhouse.greenhouse_info.pk }}" data-control="ventilation" {% if greenhouse.controls.ventilation %}checked{% endif %}>
+                                        <span class="slider"></span>
+                                    </label>
+                                    <p>Вентиляция</p>
+                                </div>
+                                <div class="control-item">
+                                    <label class="switch">
+                                        <input type="checkbox" class="control-checkbox" data-greenhouse-id="{{ greenhouse.greenhouse_info.pk }}" data-control="window1" {% if greenhouse.controls.window1 %}checked{% endif %}>
+                                        <span class="slider"></span>
+                                    </label>
+                                    <p>Окно 1</p>
+                                </div>
+                                <div class="control-item">
+                                    <label class="switch">
+                                        <input type="checkbox" class="control-checkbox" data-greenhouse-id="{{ greenhouse.greenhouse_info.pk }}" data-control="window2" {% if greenhouse.controls.window2 %}checked{% endif %}>
+                                        <span class="slider"></span>
+                                    </label>
+                                    <p>Окно 2</p>
+                                </div>
+                                <div class="control-item">
+                                    <label class="switch">
+                                        <input type="checkbox" class="control-checkbox" data-greenhouse-id="{{ greenhouse.greenhouse_info.pk }}" data-control="watering" {% if greenhouse.controls.watering %}checked{% endif %}>
+                                        <span class="slider"></span>
+                                    </label>
+                                    <p>Полив</p>
+                                </div>
+                                <div class="control-item">
+                                    <label class="switch">
+                                        <input type="checkbox" class="control-checkbox" data-greenhouse-id="{{ greenhouse.greenhouse_info.pk }}" data-control="lighting" {% if greenhouse.greenhouse_info.lighting %}checked{% endif %}>
+                                        <span class="slider"></span>
+                                    </label>
+                                    <p>Освещение</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div> -->
+</div>
+<script>
+    var latitude = "{{ greenhouse.latitude }}";
+    var latitudeWithDot = latitude.replace(",", ".");
+    var longitude = "{{ greenhouse.longitude }}";
+    var longitudeWithDot = longitude.replace(",", ".");
+
+    var map = L.map('map').setView([latitudeWithDot, longitudeWithDot], 13);
+    
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
+        maxZoom: 18,
+    }).addTo(map);
+
+    L.marker([latitudeWithDot, longitudeWithDot]).addTo(map);
+
+    // Event listener for checkboxes
+    $('.control-checkbox').on('change', function() {
+        var checkbox = $(this);
+        var greenhouseId = checkbox.data('greenhouse-id');
+        var control = checkbox.data('control');
+        var status = checkbox.is(':checked');
+
+        $.ajax({
+            url: '/monitoring/update_control/',
+            method: 'POST',
+            data: {
+                greenhouse_id: greenhouseId,
+                control: control,
+                status: status,
+                csrfmiddlewaretoken: '{{ csrf_token }}'
+            },
+            success: function(response) {
+                console.log('Control updated successfully.');
+            },
+            error: function(xhr, status, error) {
+                console.error('Error updating control:', error);
+            }
+        });
+    });
+</script>
+<script>
+    function drawTemperatureGraph(data) {
+        var datetime = Date.parse(data.datetime);
+        Highcharts.chart('chartContainer-temperature', {
+            chart: {
+                type: 'line',
+                scrollablePlotArea: {
+                    minWidth: 1000,
+                    scrollPositionX: 1
+                }
+            },
+            title: {
+                text: 'Temperature Graph'
+            },
+            xAxis: {
+                type: 'datetime',
+                labels: {
+                    overflow: 'justify'
+                },
+                categories: data.datetime
+            },
+            yAxis: {
+                title: {
+                    text: 'Temperature (°C)'
+                }
+            },
+            series: [{
+                name: 'Temperature',
+                data: data.temp1
+            }],
+            scrollbar: {
+                enabled: true
+            },
+            navigator: {
+                enabled: true
+            }
+        });
+    }
+    
+    function drawHumidityGraph(data) {
+        Highcharts.chart('chartContainer-humidity', {
+            title: {
+                text: 'Humidity Graph'
+            },
+            xAxis: {
+                categories: data.datetime
+            },
+            yAxis: {
+                title: {
+                    text: 'Humidity (%)'
+                }
+            },
+            series: [{
+                type: 'line',
+                name: 'Humidity',
+                data: data.air_humidity
+            }]
+        });
+    }
+    
+    function drawWaterGraph(data) {
+        Highcharts.chart('chartContainer-water', {
+            title: {
+                text: 'Water Graph'
+            },
+            xAxis: {
+                categories: data.datetime
+            },
+            yAxis: {
+                title: {
+                    text: 'Water'
+                }
+            },
+            series: [{
+                type: 'line',
+                name: 'Water',
+                data: data.water
+            }]
+        });
+    }
+    function drawEnergyGraph(data) {
+        Highcharts.chart('chartContainer-energy', {
+            title: {
+                text: 'Energy Graph'
+            },
+            xAxis: {
+                categories: data.datetime
+            },
+            yAxis: {
+                title: {
+                    text: 'Energy'
+                }
+            },
+            series: [{
+                type: 'line',
+                name: 'Energy',
+                data: data.energy_usage
+            }]
+        });
+    }
+    function drawsoil_moistureGraph(data) {
+        Highcharts.chart('chartContainer-soil_moisture', {
+            title: {
+                text: 'soil_moisture Graph'
+            },
+            xAxis: {
+                categories: data.datetime
+            },
+            yAxis: {
+                title: {
+                    text: 'soil_moisture'
+                }
+            },
+            series: [{
+                type: 'line',
+                name: 'soil_moisture',
+                data: data.soil_moisture
+            }]
+        });
+    }
+
+    // Запрос данных с помощью AJAX
+    $.ajax({
+        url: '/monitoring/graph_view',  // Замените на реальный URL вашего представления
+        success: function(data) {
+            drawTemperatureGraph(data);
+            drawHumidityGraph(data);
+            drawWaterGraph(data);
+            drawEnergyGraph(data);
+            drawsoil_moistureGraph(data);
+            drawbrightness_of_lightsGraph(data);
+            drawerrorGraph(data);
+            // Вызовите другие функции для других полей
+        }
+    });
+    </script>
+{% endblock %}

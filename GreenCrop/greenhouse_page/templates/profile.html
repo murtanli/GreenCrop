@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<head>
+    <link rel="stylesheet" href="{% static 'css/profile_css.css' %}">
+</head>
+<div class="patch">
+    <p>{{ patch }}</p>
+</div>
+<div class="content">
+    <div class="all_info_profile">
+        <div class="about_user">
+            <h1 class="title_block">Информация об аккаунте</h1>
+            <div class="user_img">
+                <img src="{% static 'images/profile.png' %}" alt="">
+            </div>
+            <div class="all_info">
+                <div class="login">
+                    <label for="login">Логин:</label>
+                    <p name="login">{{ user.username }}</p>
+                </div>
+                <div class="email">
+                    <label for="email">Электронная почта:</label>
+                    <p name="email">{{ user.email }}</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

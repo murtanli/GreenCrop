@@ -1,0 +1,104 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{% static 'css/base_css.css' %}">
+</head>
+<body>
+    {% if messages %}
+        <div class="message_block">
+            <div class="message">
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+                <div class="close_message">
+                    <button onclick="closeMessageBlock()">закрыть</button>
+                </div>
+            </div>
+        </div>
+        
+    {% endif %}
+    <header>
+        <div class="logo">
+            <a href="{% url 'main_page' %}">
+                <img src="{% static 'images/ico_white.png' %}" alt="logo">
+            </a>
+        </div>
+        <div class="profile">
+            <div class="icon_profile" id="profileIcon">
+                <img src="{% static 'images/profile.png' %}" alt="">
+            </div>
+            <a href="{% url 'profile' %}">{{ user.username }}</a>
+            <div class="profile_menu" id="profileMenu">
+                <a href="{% url 'logout' %}">Выйти из аккаунта</a>
+            </div>
+        </div>
+    </header>
+    <div class="header_left">
+        <div class="links">
+            <div class="add_gr_hs">
+                <a href="{% url 'add_gr_hs' %}">
+                    <img src="{% static 'images/plys.png' %}" alt="">
+                </a>
+                <div class="tooltip">Добавить теплицу</div>
+            </div>
+            <div class="monitoring">
+                <a href="{% url 'all_gr_hs' %}">
+                    <img src="{% static 'images/monitoring.png' %}" alt="">
+                </a>
+                <div class="tooltip_mon">Мониторинг теплиц</div>
+            </div>
+            <div class="report">
+                <a href="">
+                    <img src="{% static 'images/report.png' %}" alt="">
+                </a>
+                <div class="tooltip_rep">Отчет</div>
+            </div>
+            <div class="settings">
+                <a href="">
+                    <img src="{% static 'images/settings.png' %}" alt="">
+                </a>
+                <div class="tooltip_set">Настройки</div>
+            </div>
+        </div>
+    </div>
+    <div class="block_content">
+        {% block content %}
+    
+        {% endblock %}
+    </div>
+    
+
+    <footer>
+
+    </footer>
+</body>
+</html>
+<script>
+    function closeMessageBlock() {
+        var mesBlock = document.querySelector('.message_block');
+        mesBlock.classList.remove('message_block');
+        mesBlock.classList.add('message_block_none');
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const profileIcon = document.getElementById('profileIcon');
+        const profileMenu = document.getElementById('profileMenu');
+    
+        profileIcon.addEventListener('click', function() {
+            profileMenu.classList.toggle('show');
+        });
+    
+        document.addEventListener('click', function(event) {
+            if (!profileIcon.contains(event.target) && !profileMenu.contains(event.target)) {
+                profileMenu.classList.remove('show');
+            }
+        });
+    });
+    
+</script>

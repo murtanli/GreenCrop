@@ -1,0 +1,309 @@
+
+@font-face {
+    font-family: Inter;
+    src: url(../fonts/Inter/Inter-VariableFont_slnt\,wght.ttf)
+}
+body{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    background-color: #c4ffd030;
+}
+header{
+    width: 100%;
+    position: relative;
+    background-color: #363636;
+    height: 6vh;
+    z-index: 11;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.header_left{
+    position: fixed;
+    display: flex;
+    width: 8vh;
+    height: 110%;
+    background-color: rgba(73, 251, 88, 0.59);
+    flex-direction: column;
+    gap: 5vh;
+    align-items: center;
+    z-index: 10;
+    margin-top: -10vh;
+}
+.logo{
+    width: 50vh;
+    height: 6vh;
+    display: flex;
+    margin-left: 10vh;
+    flex-wrap: wrap;
+    align-items: center;
+    align-content: center;
+}
+.logo p{
+    color: white;
+    font-family: Inter;
+    font-size: 1.5vw;
+    font-weight: 400;
+}
+.title{
+    margin-left: 10vh;
+}
+.logo img{
+    width: 9vh;
+    margin-top: 1.5vh;
+}
+.links{
+    margin-top: 15vh;
+    display: flex;
+    flex-direction: column;
+    gap: 5vh;
+    align-items: center;
+}
+.links a{
+    text-decoration: none;
+    font-family: Inter;
+    color: black;
+    font-weight: 500;
+}
+.add_gr_hs img {
+    width: 6vh;
+}
+
+.add_gr_hs {
+    position: relative;
+}
+
+.add_gr_hs .tooltip {
+    display: none;
+    position: absolute;
+    left: 7vh;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #fff;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    white-space: nowrap;
+    transition: 0.4s ease;
+    opacity: 0;
+    font-family: Inter;
+}
+
+.add_gr_hs:hover .tooltip {
+    display: block;
+    opacity: 1;
+}
+
+.monitoring{
+    position: relative;
+}
+.monitoring img{
+    width: 5.5vh;
+}
+.monitoring .tooltip_mon{
+    display: none;
+    position: absolute;
+    left: 7vh;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #fff;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    white-space: nowrap;
+    transition: 0.4s ease;
+    opacity: 0;
+    font-family: Inter;
+}
+.monitoring:hover .tooltip_mon {
+    display: block;
+    opacity: 1;
+}
+.icon_profile img{
+    width: 3vh;
+    height: 3vh;
+}
+.icon_profile{
+    width: 4vh;
+    height: 4vh;
+    padding: 0.4vh;
+    background-color: gray;
+    border-radius: 100%;
+    cursor: pointer;
+    transition: 0.1s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+.profile{
+    background-color: rgb(110 110 110 / 44%);
+    display: flex;
+    margin-right: 5vh;
+    align-items: center;
+    height: 100%;
+    width: 25vh;
+    position: relative;
+    justify-content: space-around;
+}
+.profile a {
+    text-decoration: none;
+    font-family: Inter;
+    color: white;
+    font-size: 1.2vw;
+    padding-right: 5vh;
+    transition: color 0.7s ease;
+}
+.profile a:hover{
+    color: rgba(73, 251, 88, 1);
+}
+.profile_menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: rgba(137, 137, 137, 0.616);
+    padding: 1vh;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 18vh;
+}
+.profile_menu a {
+    color: black;
+    text-decoration: none;
+    font-family: Inter;
+    font-size: 1.7vh;
+}
+.profile_menu.show {
+    display: flex;
+    text-align: center;
+}
+.icon_profile:hover{
+    background-color: rgb(217, 217, 217);
+}
+
+.settings{
+    position: relative;
+}
+.settings img{
+    width: 6vh;
+}
+.settings .tooltip_set{
+    display: none;
+    position: absolute;
+    left: 7vh;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #fff;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    white-space: nowrap;
+    transition: 0.4s ease;
+    opacity: 0;
+    font-family: Inter;
+}
+.settings:hover .tooltip_set {
+    display: block;
+    opacity: 1;
+}
+
+.report{
+    position: relative;
+}
+.report img{
+    width: 6vh;
+}
+.report .tooltip_rep{
+    display: none;
+    position: absolute;
+    left: 7vh;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #fff;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    white-space: nowrap;
+    transition: 0.4s ease;
+    opacity: 0;
+    font-family: Inter;
+}
+.report:hover .tooltip_rep {
+    display: block;
+    opacity: 1;
+}
+
+
+.message_block_none{
+    display: none;
+}
+.message_block{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(0 0 0 / 80%);
+    z-index: 1100;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+.close_message button{
+    font-family: Inter;
+    font-size: 1.2vw;
+    width: 25vh;
+    height: 6vh;
+    color: white;
+    border: none;
+    background-color: rgb(0 0 0);
+    transition: 0.4s ease;
+    border-radius: 2vh;
+}
+.close_message button:hover{
+    background-color: rgb(232 232 232);
+    color: black;
+}
+.close_message {
+    margin-bottom: 10vh;
+}
+.message{
+    display: flex;
+    width: 50vh;
+    background-color: #ffffff45;
+    border-radius: 2vh;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.messages{
+    padding: 5vh;
+}
+.messages li{
+    font-family: Inter;
+    font-size: 1vw;
+    font-weight: 400;
+    color: white;
+    line-height: 1.4;
+}
+.messages li::marker{
+    color: black;
+}
+.block_content{
+    margin-left: 8vh;
+    width: 95.9%;
+    background-color: rgba(234, 234, 234, 0.253);
+}
+.patch{
+    padding: 1vh;
+    padding-left: 2vh;
+}
+.patch p{
+    font-family: Inter;
+    font-size: 1.2vw;
+    font-weight: 300;
+}

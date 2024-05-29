@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/auth_css.css' %}">
+    <title>Авторизация</title>
+</head>
+<body>
+    <header>
+        <div class="links">
+            <a href="{% url 'main_page' %}">На главную страницу</a>
+        </div>
+    </header>
+    {% if messages %}
+        <div class="message_block">
+            <div class="message">
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+                <div class="close_message">
+                    <button onclick="closeMessageBlock()">закрыть</button>
+                </div>
+            </div>
+        </div>
+        
+    {% endif %}
+    <div class="content">
+        <div class="auth_block">
+            <form method="post" action="{% url 'auth_page' %}">
+                {% csrf_token %}
+                <h1 class="auth_block_form_title">Авторизация</h1>
+                <div class="text_block">
+                    <input type="text" name="login" id="login" placeholder="Логин">
+                </div>
+                <div class="text_block">
+                    <input type="password" name="password" id="password" placeholder="Пароль">
+                </div>
+                <button>Войти</button>
+            </form>
+        </div>
+    </div>
+</body>
+<script>
+    function closeMessageBlock() {
+        var mesBlock = document.querySelector('.message_block');
+        mesBlock.classList.remove('message_block');
+        mesBlock.classList.add('message_block_none');
+    }
+</script>
+</html>

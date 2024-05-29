@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <p>Айди теплицы</p>
+    <input id="id_gr" type="text">
+    <button id="but">Запуск</button>
+    <button id="stop">Стоп</button>
+    <p id="heh"></p>
+</body>
+</html>
+<script>
+    $(document).ready(function(){
+        var intervalId;
+
+        $('#but').click(function(){
+            var inp = $('#id_gr').val(); // Берем значение инпута при нажатии кнопки
+            
+            function updateData() {
+                $.ajax({
+                    url: '/monitoring/save_db/' + inp,
+                    success: function(data) {
+                        var registry = data.heh;
+                        var registryInfo = `
+                            ID: ${registry.id}<br>
+                            Дата: ${registry.datetime}<br>
+                            Влажность воздуха: ${registry.air_humidity}%<br>
+                            Вода: ${registry.water}<br>
+                            Температура 1: ${registry.temp1}°C<br>
+                            Температура 2: ${registry.temp2}°C<br>
+                            Температура 3: ${registry.temp3}°C<br>
+                            Энергопотребление: ${registry.energy_usage}<br>
+                            Влажность почвы: ${registry.soil_moisture}%<br>
+                        `;
+                        $('#heh').append(registryInfo + '<br>');
+                    }
+                });
+            }
+            
+            updateData();
+            intervalId = setInterval(updateData, 5000);
+        });
+
+        $('#stop').click(function(){
+            if (intervalId) {
+                clearInterval(intervalId);
+                intervalId = null;
+                $('#heh').append('Остановка<br>');
+            }
+        });
+    });
+</script>

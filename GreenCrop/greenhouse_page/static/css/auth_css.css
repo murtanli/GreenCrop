@@ -1,0 +1,212 @@
+
+@font-face {
+    font-family: Inter;
+    src: url(../fonts/Inter/Inter-VariableFont_slnt\,wght.ttf)
+}
+body{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    background-color: #c4ffd030;
+}
+header{
+    width: 100%;
+    height: 10vh;
+    display: flex;
+    align-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+    z-index: 2;
+    position: absolute;
+}
+.links{
+    padding-left: 10vh;
+    width: 100%;
+    display: flex;
+    align-content: center;
+    justify-content: flex-start;
+}
+.links a{
+    text-decoration: none;
+    color: black;
+    font-family: Inter;
+    font-size: 1.3vw;
+    font-weight: 300;
+    cursor: pointer;
+    transition: color 0.5s;
+}
+.links a:hover{
+    color: rgb(64, 250, 101);
+}
+
+
+/* auth form */
+.content{
+    width: 100%;
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
+}
+
+.auth_block{
+    margin-top: 20vh;
+    width: 25%;
+    height: 60vh;
+    background-color: #ffffff80;
+    border-radius: 2vh;
+    border: solid 0.1vh black;
+}
+.auth_block form{
+    display: flex;
+    height: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+    /* gap: 2vh; */
+    align-content: space-around;
+}
+.auth_block form h1{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    font-family: Inter;
+    font-size: 4vh;
+    font-weight: 400;
+}
+.text_block{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.text_block input{
+    height: 5vh;
+    width: 60%;
+}
+
+.text_block input{
+    border: none;
+    border-bottom: solid 0.1vh rgb(0, 0, 0);
+    outline: none;
+    font-family: Inter;
+    font-size: 1.2vw;
+    color: rgb(0, 0, 0);
+    font-weight: 300;
+}
+.text_block input:focus {
+    outline: none;
+    transition: 1s ease;
+    animation: lines 1s linear 1 alternate;
+}
+
+.text_block input::placeholder{
+    font-family: Inter;
+    font-size: 1.2vw;
+    color: rgb(109, 109, 109);
+    font-weight: 300;
+}
+.auth_block form button {
+    width: 50%;
+    height: 5vh;
+    background-color: #ffffff80;
+    border: solid 0.1vh rgb(0, 0, 0);
+    color: rgb(0, 0, 0);
+    font-family: Inter;
+    font-size: 1.2vw;
+    border-radius: 1vh;
+    cursor: pointer;
+    transition: background-color 0.4s;
+}
+.auth_block form button:hover{
+    background-color: #bfffc754;
+}
+
+
+@keyframes lines {
+    0% {
+        border-top: solid 0.1vh transparent;
+        border-left: solid 0.1vh transparent;
+        border-bottom: solid 0.1vh rgb(0, 0, 0);
+        border-right: solid 0.1vh transparent;
+    }
+    25% {
+        border-top: solid 0.1vh transparent;
+        border-left: solid 0.1vh rgb(0, 0, 0);
+        border-bottom: solid 0.1vh transparent;
+        border-right: solid 0.1vh transparent;
+    }
+    50% {
+        border-top: solid 0.1vh rgb(0, 0, 0);
+        border-left: solid 0.1vh transparent;
+        border-bottom: solid 0.1vh transparent;
+        border-right: solid 0.1vh transparent;
+    }
+    75% {
+        border-top: solid 0.1vh transparent;
+        border-left: solid 0.1vh transparent;
+        border-bottom: solid 0.1vh transparent;
+        border-right: solid 0.1vh rgb(0, 0, 0);
+    }
+    100% {
+        border-top: solid 0.1vh transparent;
+        border-left: solid 0.1vh transparent;
+        border-bottom: solid 0.1vh rgb(0, 0, 0);
+        border-right: solid 0.1vh transparent;
+    }
+}
+
+
+
+.message_block_none{
+    display: none;
+}
+.message_block{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(0 0 0 / 80%);
+    z-index: 999;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+.close_message button{
+    font-family: Inter;
+    font-size: 1.2vw;
+    width: 25vh;
+    height: 6vh;
+    color: white;
+    border: none;
+    background-color: rgb(0 0 0);
+    transition: 0.4s ease;
+    border-radius: 2vh;
+}
+.close_message button:hover{
+    background-color: rgb(232 232 232);
+    color: black;
+}
+.close_message {
+    margin-bottom: 10vh;
+}
+.message{
+    display: flex;
+    width: 50vh;
+    background-color: #ffffff45;
+    border-radius: 2vh;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.messages{
+    padding: 5vh;
+}
+.messages li{
+    font-family: Inter;
+    font-size: 1vw;
+    font-weight: 400;
+    color: white;
+    line-height: 1.4;
+}
+.messages li::marker{
+    color: black;
+}

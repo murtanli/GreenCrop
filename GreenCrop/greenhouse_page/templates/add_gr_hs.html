@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<head>
+    <link rel="stylesheet" href="{% static 'css/add_gr_hs_css.css' %}">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<div class="patch">
+    <p>{{ patch }}</p>
+</div>
+<div class="content">
+    <div class="add_gr">
+        <h1 class="title_block">Введите данные теплицы</h1>
+        <div class="block_add">
+            <form class="inputs_form_about_gr" method="post" action="{% url 'save_gr_hs' %}">
+                {% csrf_token %}
+                <div class="input_block">
+                    <input type="text" name="imei" id="imei" placeholder="imei" maxlength="15">
+                </div>
+                <div class="input_block">
+                    <input type="text" name="city" id="city" placeholder="Город">
+                </div>
+                <div class="input_block">
+                    <input type="number" name="area" id="area" placeholder="Площадь теплицы">
+                </div>
+                <div class="none_input">
+                    <input type="hidden" name="latitude" id="id_latitude">
+                    <input type="hidden" name="longitude" id="id_longitude">
+                </div>
+                <div class="button_succes">
+                    <button>Сохранить</button>
+                </div>
+            </form>
+            <div class="select_map">
+                <div class="map-container">
+                    <div id="map" class="map"></div>
+                    <button id="fullscreen-open">Открыть на весь экран</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function() {
+        var map = L.map('map').setView([55.751244, 37.618423], 13);
+    
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
+            maxZoom: 18,
+        }).addTo(map);
+    
+        map.on('click', function(e) {
+            var latitude = e.latlng.lat;
+            var longitude = e.latlng.lng;
+    
+            var marker = L.marker([latitude, longitude]).addTo(map);
+            $('#id_latitude').val(latitude);
+            $('#id_longitude').val(longitude);
+    
+            marker.on('contextmenu', function() {
+                map.removeLayer(marker);
+    
+                $('#id_latitude').val('');
+                $('#id_longitude').val('');
+            });
+        });
+    });
+    $(document).ready(function() {
+        $('#fullscreen-open').click(function() {
+            var mapElement = document.getElementById('map');
+            if (mapElement.requestFullscreen) {
+                    
+                mapElement.requestFullscreen();
+            } else if (mapElement.mozRequestFullScreen) {
+                mapElement.mozRequestFullScreen();
+            } else if (mapElement.webkitRequestFullscreen) {
+                mapElement.webkitRequestFullscreen();
+            } else if (mapElement.msRequestFullscreen) {
+                mapElement.msRequestFullscreen();
+            }
+        });
+    
+        // Закрытие полноэкранного режима
+        $('#fullscreen-close').click(function() {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.mozCancelFullScreen) {
+                document.mozCancelFullScreen();
+            } else if (document.webkitExitFullscreen) {
+                document.webkitExitFullscreen();
+            } else if (document.msExitFullscreen) {
+                document.msExitFullscreen();
+            }
+        });
+    });
+    
+    
+    
+    
+    
+    </script>
+{% endblock %}
