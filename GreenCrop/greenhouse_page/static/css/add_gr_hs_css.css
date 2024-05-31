@@ -79,7 +79,7 @@
     border-radius: 1vh;
     cursor: pointer;
     transition: background-color 0.4s;
-    margin-top: 70%;
+    margin-top: 40%;
 }
 .button_succes button:hover{
     background-color: #bfffc754;
@@ -119,4 +119,26 @@
 }
 #fullscreen-open:hover{
     background-color: #ffffff;
+}
+.input_block_check{
+    width: 40vh;
+    display: flex;
+    font-family: Inter;
+    font-size: 1.2vw;
+    color: rgb(86, 86, 86);
+    /* align-content: center; */
+    align-items: center;
+}
+
+.input_block_check input{
+    width: 100%;
+    height: 5vh;
+    border: none;
+    border-bottom: solid 0.1vh rgb(0, 0, 0);
+    outline: none;
+    font-family: Inter;
+    font-size: 1.2vw;
+    color: rgb(86, 86, 86);
+    font-weight: 300;
+    transition: 1s ease;
 }

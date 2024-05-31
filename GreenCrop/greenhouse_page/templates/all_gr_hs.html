@@ -117,14 +117,14 @@
                                 </div>
                                 <div class="control-item">
                                     <label class="switch">
-                                        <input type="checkbox" class="control-checkbox" data-greenhouse-id="{{ greenhouse.greenhouse_info.pk }}" data-control="watering" {% if greenhouse.controls.watering %}checked{% endif %}>
+                                        <input type="checkbox" class="control-checkbox" data-greenhouse-id="{{ greenhouse.greenhouse_info.pk }}" data-control="water_supply" {% if greenhouse.controls.water_supply %}checked{% endif %}>
                                         <span class="slider"></span>
                                     </label>
                                     <p>Полив</p>
                                 </div>
                                 <div class="control-item">
                                     <label class="switch">
-                                        <input type="checkbox" class="control-checkbox" data-greenhouse-id="{{ greenhouse.greenhouse_info.pk }}" data-control="lighting" {% if greenhouse.greenhouse_info.lighting %}checked{% endif %}>
+                                        <input type="checkbox" class="control-checkbox" data-greenhouse-id="{{ greenhouse.greenhouse_info.pk }}" data-control="lights" {% if greenhouse.controls.lights %}checked{% endif %}>
                                         <span class="slider"></span>
                                     </label>
                                     <p>Освещение</p>

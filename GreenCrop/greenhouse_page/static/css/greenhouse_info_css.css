@@ -96,6 +96,7 @@
     width: 100%;
 }
 .all_gr_hs{
+    /*    width: 50%; */
     width: 90%;
     padding: 4vh;
     background-color: rgb(238 238 238 / 91%);
@@ -112,7 +113,6 @@
 }
 .gr_hss{
     margin-left: 10vh;
-    width: 100%;
     display: flex;
     gap: 7vh;
     padding: 3vh;
@@ -273,4 +273,96 @@ input:checked + .slider {
 input:checked + .slider:before {
     transform: translateX(26px);
 }
+.graphics_view{
+    
+}
+#highcharts-o8e3ub7-0{
+    border-radius: 3vh;
+}
+.all_graphics{
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 5vh;
+}
 
+
+.block_controls {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    font-family: Inter;
+    font-weight: 300;
+    font-size: 1vw;
+}
+
+.controls_interface {
+    width: 90%;
+    padding: 4vh;
+    background-color: rgb(148, 255, 157);
+    border-radius: 1vh;
+    box-shadow: 0px 0px 20px 7px #00000038;
+    height: 100%;
+    margin-bottom: 10vh;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.control-item {
+    display: flex;
+    width: 15%;
+    align-items: center;
+    margin-bottom: 2vh;
+}
+
+.control-item label {
+    margin-right: 2vh;
+}
+
+/* Switch Styles */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #2196F3;
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}

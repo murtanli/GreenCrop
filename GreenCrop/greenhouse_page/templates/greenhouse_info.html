@@ -43,7 +43,7 @@
             </div>
             <div class="all_area">
                 <img src="{% static 'images/area.png' %}" alt="">
-                <p>Общая площадь (м2)</p>
+                <p>Площадь (м2)</p>
                 <p style="font-size: 1.6vw;">{{ gr_area }}</p>
             </div>
         </div>
@@ -56,8 +56,47 @@
                     <option value="tat">Республика Татарстан</option>
                 </select>
                 <div id="map" style="width: 100%; height: 50vh;">
-
                 </div>
+            </div>
+        </div>
+    </div>
+    <div class="block_controls">
+        <div class="controls_interface">
+            <p style="width: 100%; text-align: center; margin-bottom: 10vh; font-size: 2vw;">Управление теплицей</p>
+            <div class="control-item">
+                <label class="switch">
+                    <input type="checkbox" class="control-checkbox" data-greenhouse-id="{{ greenhouse.pk }}" data-control="ventilation" {% if controls.ventilation %}checked{% endif %}>
+                    <span class="slider"></span>
+                </label>
+                <p>Вентиляция</p>
+            </div>
+            <div class="control-item">
+                <label class="switch">
+                    <input type="checkbox" class="control-checkbox" data-greenhouse-id="{{ greenhouse.pk }}" data-control="window1" {% if controls.window1 %}checked{% endif %}>
+                    <span class="slider"></span>
+                </label>
+                <p>Окно 1</p>
+            </div>
+            <div class="control-item">
+                <label class="switch">
+                    <input type="checkbox" class="control-checkbox" data-greenhouse-id="{{ greenhouse.pk }}" data-control="window2" {% if controls.window2 %}checked{% endif %}>
+                    <span class="slider"></span>
+                </label>
+                <p>Окно 2</p>
+            </div>
+            <div class="control-item">
+                <label class="switch">
+                    <input type="checkbox" class="control-checkbox" data-greenhouse-id="{{ greenhouse.pk }}" data-control="water_supply" {% if controls.water_supply %}checked{% endif %}>
+                    <span class="slider"></span>
+                </label>
+                <p>Полив</p>
+            </div>
+            <div class="control-item">
+                <label class="switch">
+                    <input type="checkbox" class="control-checkbox" data-greenhouse-id="{{ greenhouse.pk }}" data-control="lights" {% if controls.lights %}checked{% endif %}>
+                    <span class="slider"></span>
+                </label>
+                <p>Освещение</p>
             </div>
         </div>
     </div>
@@ -67,13 +106,12 @@
                 <p>Графики</p>
             </div>
             <div class="gr_hss">
-                <div class="rer">
-                    <div id="chartContainer-temperature"></div>
-                    <div id="chartContainer-humidity"></div>
-                    <div id="chartContainer-water"></div>
-                    <div id="chartContainer-energy"></div>
-                    <div id="chartContainer-soil_moisture"></div>
-                    <!-- Добавьте остальные контейнеры для других полей -->
+                <div class="all_graphics">
+                    <div class="graphics_view" id="chartContainer-temperature"></div>
+                    <div class="graphics_view" id="chartContainer-air_humidity"></div>
+                    <div class="graphics_view" id="chartContainer-water"></div>
+                    <div class="graphics_view" id="chartContainer-energy"></div>
+                    <div class="graphics_view" id="chartContainer-soil_moisture"></div>
                 </div>
             </div>
     </div>
@@ -161,6 +199,15 @@
     </div> -->
 </div>
 <script>
+  
+    var citySelect = document.getElementById("city-select");
+        
+    var cityCoordinates = {
+        kazan: [55.796127, 49.106405],
+        moscow: [55.751244, 37.618423],
+        tat: [55.28285549418521, 50.863293317677154]
+    };
+
     var latitude = "{{ greenhouse.latitude }}";
     var latitudeWithDot = latitude.replace(",", ".");
     var longitude = "{{ greenhouse.longitude }}";
@@ -174,6 +221,25 @@
     }).addTo(map);
 
     L.marker([latitudeWithDot, longitudeWithDot]).addTo(map);
+
+    citySelect.addEventListener("change", function() {
+        var selectedCity = citySelect.value;
+    
+        if (cityCoordinates.hasOwnProperty(selectedCity)) {
+            var coordinates = cityCoordinates[selectedCity];
+            if (selectedCity === 'tat'){
+                map.setView(coordinates, 8);
+            } else {
+                map.setView(coordinates, 10);
+            }
+            
+            for (var i = 0; i < greenhouses.length; i++) {
+
+                var greenhouse = greenhouses[i];
+                L.marker([greenhouse.latitude, greenhouse.longitude]).addTo(map);
+            }
+        }
+    });
 
     // Event listener for checkboxes
     $('.control-checkbox').on('change', function() {
@@ -199,20 +265,18 @@
             }
         });
     });
-</script>
-<script>
     function drawTemperatureGraph(data) {
         var datetime = Date.parse(data.datetime);
         Highcharts.chart('chartContainer-temperature', {
             chart: {
                 type: 'line',
                 scrollablePlotArea: {
-                    minWidth: 1000,
+                    minWidth: 2000,
                     scrollPositionX: 1
                 }
             },
             title: {
-                text: 'Temperature Graph'
+                text: 'График темепратуры'
             },
             xAxis: {
                 type: 'datetime',
@@ -223,12 +287,12 @@
             },
             yAxis: {
                 title: {
-                    text: 'Temperature (°C)'
+                    text: 'Температура (°C)'
                 }
             },
             series: [{
-                name: 'Temperature',
-                data: data.temp1
+                name: 'Средняя температура', 
+                data: data.avg_temperature
             }],
             scrollbar: {
                 enabled: true
@@ -240,7 +304,43 @@
     }
     
     function drawHumidityGraph(data) {
-        Highcharts.chart('chartContainer-humidity', {
+        var datetime = Date.parse(data.datetime);
+        Highcharts.chart('chartContainer-air_humidity', {
+            chart: {
+                type: 'line',
+                scrollablePlotArea: {
+                    minWidth: 2000,
+                    scrollPositionX: 1
+                }
+            },
+            title: {
+                text: 'График влажности воздуха'
+            },
+            xAxis: {
+                type: 'datetime',
+                labels: {
+                    overflow: 'justify'
+                },
+                categories: data.datetime
+            },
+            yAxis: {
+                title: {
+                    text: 'Влажность почвы (%)'
+                }
+            },
+            series: [{
+                name: 'Влажность почвы',
+                data: data.air_humidity
+            }],
+            scrollbar: {
+                enabled: true
+            },
+            navigator: {
+                enabled: true
+            }
+        });
+
+        /*Highcharts.chart('chartContainer-humidity', {
             title: {
                 text: 'Humidity Graph'
             },
@@ -257,10 +357,45 @@
                 name: 'Humidity',
                 data: data.air_humidity
             }]
-        });
+        });*/
     }
     
     function drawWaterGraph(data) {
+        Highcharts.chart('chartContainer-water', {
+            chart: {
+                type: 'line',
+                scrollablePlotArea: {
+                    minWidth: 2000,
+                    scrollPositionX: 1
+                }
+            },
+            title: {
+                text: 'График количества воды'
+            },
+            xAxis: {
+                type: 'datetime',
+                labels: {
+                    overflow: 'justify'
+                },
+                categories: data.datetime
+            },
+            yAxis: {
+                title: {
+                    text: 'Вода (Л)'
+                }
+            },
+            series: [{
+                name: 'Количество воды',
+                data: data.water
+            }],
+            scrollbar: {
+                enabled: true
+            },
+            navigator: {
+                enabled: true
+            }
+        });
+        /*
         Highcharts.chart('chartContainer-water', {
             title: {
                 text: 'Water Graph'
@@ -278,9 +413,45 @@
                 name: 'Water',
                 data: data.water
             }]
-        });
+        });*/
     }
     function drawEnergyGraph(data) {
+        Highcharts.chart('chartContainer-energy', {
+            chart: {
+                type: 'line',
+                scrollablePlotArea: {
+                    minWidth: 2000,
+                    scrollPositionX: 1
+                }
+            },
+            title: {
+                text: 'График потребляемост энергии'
+            },
+            xAxis: {
+                type: 'datetime',
+                labels: {
+                    overflow: 'justify'
+                },
+                categories: data.datetime
+            },
+            yAxis: {
+                title: {
+                    text: 'Энергия'
+                }
+            },
+            series: [{
+                name: 'Энергия',
+                data: data.energy_usage
+            }],
+            scrollbar: {
+                enabled: true
+            },
+            navigator: {
+                enabled: true
+            }
+        });
+
+        /*
         Highcharts.chart('chartContainer-energy', {
             title: {
                 text: 'Energy Graph'
@@ -298,9 +469,44 @@
                 name: 'Energy',
                 data: data.energy_usage
             }]
-        });
+        });*/
     }
     function drawsoil_moistureGraph(data) {
+        Highcharts.chart('chartContainer-soil_moisture', {
+            chart: {
+                type: 'line',
+                scrollablePlotArea: {
+                    minWidth: 2000,
+                    scrollPositionX: 1
+                }
+            },
+            title: {
+                text: 'График влажности почвы'
+            },
+            xAxis: {
+                type: 'datetime',
+                labels: {
+                    overflow: 'justify'
+                },
+                categories: data.datetime
+            },
+            yAxis: {
+                title: {
+                    text: 'Влажность'
+                }
+            },
+            series: [{
+                name: 'Влажность',
+                data: data.soil_moisture
+            }],
+            scrollbar: {
+                enabled: true
+            },
+            navigator: {
+                enabled: true
+            }
+        });
+        /*
         Highcharts.chart('chartContainer-soil_moisture', {
             title: {
                 text: 'soil_moisture Graph'
@@ -318,7 +524,7 @@
                 name: 'soil_moisture',
                 data: data.soil_moisture
             }]
-        });
+        });*/
     }
 
     // Запрос данных с помощью AJAX
@@ -330,8 +536,6 @@
             drawWaterGraph(data);
             drawEnergyGraph(data);
             drawsoil_moistureGraph(data);
-            drawbrightness_of_lightsGraph(data);
-            drawerrorGraph(data);
             // Вызовите другие функции для других полей
         }
     });

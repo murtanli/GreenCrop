@@ -72,9 +72,15 @@ def save_gr_hs(request):
         imei_text = request.POST.get('imei')
         city_text = request.POST.get('city')
         area_text = request.POST.get('area')
+        sowing_text = request.POST.get('sowing')
         latitude_text = request.POST.get('latitude')
         longitude_text = request.POST.get('longitude')
         # Список для сбора ошибок
+        if sowing_text == 'on':
+            sowing_text = True
+        else:
+            sowing_text = False
+
         error_list = []
 
         # Проверка на существование теплицы с таким IMEI
@@ -83,8 +89,8 @@ def save_gr_hs(request):
             return redirect('add_gr_hs')
 
         # Проверка на пустые поля
-        if not imei_text:
-            error_list.append('Введите imei!')
+        if not imei_text or len(imei_text) < 10:
+            error_list.append('Введите корректный imei!')
         if not city_text:
             error_list.append('Введите город!')
         if not area_text:
@@ -107,7 +113,7 @@ def save_gr_hs(request):
                 area=area_text,
                 latitude=latitude_text,
                 longitude=longitude_text,
-                sowing=False,
+                sowing=sowing_text,
             )
             gr_hs.save()
 
@@ -217,17 +223,17 @@ def update_control(request):
         status = request.POST.get('status') == 'true'
 
         greenhouse = GreenhouseControl.objects.get(greenhouse=greenhouse_id)
-
+        print(control)
         if control == 'ventilation':
             greenhouse.ventilation = status
         elif control == 'window1':
             greenhouse.window1 = status
         elif control == 'window2':
             greenhouse.window2 = status
-        elif control == 'watering':
-            greenhouse.watering = status
-        elif control == 'lighting':
-            greenhouse.lighting = status
+        elif control == 'water_supply':
+            greenhouse.water_supply = status
+        elif control == 'lights':
+            greenhouse.lights = status
 
         greenhouse.save()
         return JsonResponse({'success': True})
@@ -236,6 +242,7 @@ def update_control(request):
 def monitoring_gr_hs(request, greenhouse_id):
     greenhouse = Greenhouse.objects.get(id=greenhouse_id)
     gr_register = Registry.objects.filter(greenhouse=greenhouse).order_by('-datetime')
+    controls = GreenhouseControl.objects.get(greenhouse=greenhouse)
     request.session['greenhouse_id'] = greenhouse_id
     if gr_register.exists():
         latest_reg = gr_register.first()
@@ -244,6 +251,7 @@ def monitoring_gr_hs(request, greenhouse_id):
     except:
         all_alerts = 0
     context = {
+        'controls': controls,
         'greenhouse': greenhouse,
         'all_alerts':all_alerts,
         'gr_num': greenhouse.id,
@@ -258,13 +266,12 @@ def monitoring_gr_hs(request, greenhouse_id):
 
 def graph_view(request):
     tepl_id = request.session.get('greenhouse_id')
-    if tepl_id is not None:
+    if tepl_id is not None:#avg_temperature = (latest_reg.temp1 + latest_reg.temp2 + latest_reg.temp3) / 3
         registries = Registry.objects.filter(greenhouse=tepl_id)
         data = {
+
             'datetime': [localtime(r.datetime).strftime("%d %B %H:%M") for r in registries],
-            'temp1': [r.temp1 for r in registries],
-            'temp2': [r.temp2 for r in registries],
-            'temp3': [r.temp3 for r in registries],
+            'avg_temperature': [(r.temp1 + r.temp2 + r.temp3)/3 for r in registries],
             'air_humidity': [r.air_humidity for r in registries],
             'water': [r.water for r in registries],
             'energy_usage': [r.energy_usage for r in registries],
