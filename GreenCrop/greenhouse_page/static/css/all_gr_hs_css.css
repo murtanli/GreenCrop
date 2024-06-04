@@ -112,7 +112,7 @@
 }
 .gr_hss{
     margin-left: 10vh;
-    width: 100%;
+    width: 96%;
     display: flex;
     gap: 7vh;
     padding: 3vh;
@@ -163,7 +163,7 @@
     height: 60vh;
     border-radius: 2vh;
     z-index: 2;
-    width: 68.5vh;
+    width: 33.2%;
     background-color: rgba(73, 251, 88, 0.59);
 }
 
@@ -218,6 +218,7 @@
     background-color: white;
     border-radius: 1vh;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px;
+    height: 10vh;
 }
 
 .control-item p {
