@@ -46,11 +46,13 @@ def sign_in(request):
             user = User.objects.create_user(username=login_text, email=email_text, password=password_text)
             messages.success(request, 'Регистрация прошла успешно!')
         except:
-            messages.error(request,'Ошибка регистрации. Пользователь с таким логином уже существует или произошла ошибка при заполнении формы.')
+            messages.error(request,
+                           'Ошибка регистрации. Пользователь с таким логином уже существует или произошла ошибка при заполнении формы.')
 
         return redirect('main_page')
     else:
         return redirect('main_page')
+
 
 def add_gr_hs(request):
     user = request.user
@@ -62,7 +64,7 @@ def add_gr_hs(request):
     if user.is_authenticated:
         return render(request, 'add_gr_hs.html', context=context)
     else:
-        messages.error(request,'Авторизуйтесь !')
+        messages.error(request, 'Авторизуйтесь !')
         return redirect('main_page')
 
 
@@ -148,6 +150,7 @@ def save_gr_hs(request):
     else:
         return redirect('add_gr_hs')
 
+
 def profile(request):
     user = request.user
     title = 'Профиль'
@@ -155,12 +158,14 @@ def profile(request):
     if user.is_authenticated:
         return render(request, 'profile.html', {'user': user, 'title': title, 'patch': patch})
     else:
-        messages.error(request,'Авторизуйтесь !')
+        messages.error(request, 'Авторизуйтесь !')
         return redirect('main_page')
+
 
 def logout_func(request):
     logout(request)
     return redirect('main_page')
+
 
 @login_required
 def all_gr_hs(request):
@@ -206,6 +211,7 @@ def all_gr_hs(request):
     }
     return render(request, 'all_gr_hs.html', context=context)
 
+
 def map_data(request):
     user = request.user
     gr = Greenhouse.objects.filter(user=user)
@@ -239,7 +245,10 @@ def update_control(request):
         return JsonResponse({'success': True})
     return JsonResponse({'success': False, 'error': 'Invalid request'}, status=400)
 
+
 def monitoring_gr_hs(request, greenhouse_id):
+    title = f'Теплица {greenhouse_id}'
+    patch = f'Все теплицы / Теплица {greenhouse_id}'
     greenhouse = Greenhouse.objects.get(id=greenhouse_id)
     gr_register = Registry.objects.filter(greenhouse=greenhouse).order_by('-datetime')
     controls = GreenhouseControl.objects.get(greenhouse=greenhouse)
@@ -251,9 +260,11 @@ def monitoring_gr_hs(request, greenhouse_id):
     except:
         all_alerts = 0
     context = {
+        'title': title,
+        'patch': patch,
         'controls': controls,
         'greenhouse': greenhouse,
-        'all_alerts':all_alerts,
+        'all_alerts': all_alerts,
         'gr_num': greenhouse.id,
         'sowing': greenhouse.sowing,
         'gr_water': latest_reg.water,
@@ -264,14 +275,15 @@ def monitoring_gr_hs(request, greenhouse_id):
     }
     return render(request, 'greenhouse_info.html', context=context)
 
+
 def graph_view(request):
     tepl_id = request.session.get('greenhouse_id')
-    if tepl_id is not None:#avg_temperature = (latest_reg.temp1 + latest_reg.temp2 + latest_reg.temp3) / 3
+    if tepl_id is not None:  # avg_temperature = (latest_reg.temp1 + latest_reg.temp2 + latest_reg.temp3) / 3
         registries = Registry.objects.filter(greenhouse=tepl_id)
         data = {
 
             'datetime': [localtime(r.datetime).strftime("%d %B %H:%M") for r in registries],
-            'avg_temperature': [(r.temp1 + r.temp2 + r.temp3)/3 for r in registries],
+            'avg_temperature': [(r.temp1 + r.temp2 + r.temp3) / 3 for r in registries],
             'air_humidity': [r.air_humidity for r in registries],
             'water': [r.water for r in registries],
             'energy_usage': [r.energy_usage for r in registries],
@@ -285,11 +297,10 @@ def graph_view(request):
     return JsonResponse(data)
 
 
-
-
-
 def test(request):
     return render(request, 'test_add_info.html')
+
+
 class save_db(View, LoginRequiredMixin):
     def get(self, request, greenhouse_id):
         if request.user.is_authenticated:
@@ -297,7 +308,6 @@ class save_db(View, LoginRequiredMixin):
             gr = Greenhouse.objects.filter(id=greenhouse_id)
             num = gr.latest('id')
             new_registry = Registry()
-
 
             new_registry.greenhouse = num
             new_registry.datetime = datetime.now()
@@ -328,3 +338,36 @@ class save_db(View, LoginRequiredMixin):
                 'heh': 'none',
             }
         return JsonResponse(data)
+
+
+def reports_view(request):
+    title = 'Отчеты'
+    patch = 'Home / Отчеты'
+
+    if request.method == 'POST':
+        greenhouse_id = request.POST.get('greenhouse_id')
+        type_report = request.POST.get('type_report')
+        description = request.POST.get('description')
+        rate_plants = request.POST.get('rate_plants')
+
+
+        report_new = Report()
+        report_new.greenhouse = Greenhouse.objects.get(id=greenhouse_id)
+        report_new.datetime = datetime.now()
+        report_new.type_report = type_report
+        report_new.description = description
+        report_new.rate_plants = rate_plants
+        report_new.save()
+
+        messages.success(request, 'Сохранено !')
+
+    # Извлечение всех теплиц пользователя и связанных отчетов одним запросом
+    reports = Report.objects.filter(greenhouse__user_id=request.user).order_by('-datetime')
+    all_greenhouse_user = Greenhouse.objects.filter(user=request.user)
+    context = {
+        'all_greenhouse_user': all_greenhouse_user,
+        'title': title,
+        'patch': patch,
+        'reports': reports
+    }
+    return render(request, 'reports.html', context=context)

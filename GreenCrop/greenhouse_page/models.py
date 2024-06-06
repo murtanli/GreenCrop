@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 
 
@@ -73,12 +74,13 @@ class Report(models.Model):
         ('Экономическая эффективность', 'Экономическая эффективность'),
         ('Анализ почвы', 'Анализ почвы'),
         ('Климатические условия', 'Климатические условия'),
+        ('Посев', 'Посев'),
     ]
     greenhouse = models.ForeignKey(Greenhouse, on_delete=models.CASCADE)
     datetime = models.DateTimeField()
     type_report = models.CharField(max_length=50, choices=REPORT_TYPES)
     description = models.TextField(blank=True)
-    rate_plants = models.IntegerField()
+    rate_plants = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(10)])
 
     def __str__(self):
         return f"Report {self.id} - {self.type_report} at {self.datetime}"

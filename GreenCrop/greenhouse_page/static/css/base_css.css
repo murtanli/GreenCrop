@@ -3,6 +3,9 @@
     font-family: Inter;
     src: url(../fonts/Inter/Inter-VariableFont_slnt\,wght.ttf)
 }
+p, h1, h2, label{
+    font-family: Inter;
+}
 body{
     margin: 0;
     padding: 0;
@@ -261,12 +264,12 @@ header{
     height: 6vh;
     color: white;
     border: none;
-    background-color: rgb(0 0 0);
+    background-color: rgba(73, 251, 88, 0.59);
     transition: 0.4s ease;
     border-radius: 2vh;
 }
 .close_message button:hover{
-    background-color: rgb(232 232 232);
+    background-color: rgba(12, 175, 25, 0.59);
     color: black;
 }
 .close_message {
@@ -279,6 +282,8 @@ header{
     border-radius: 2vh;
     flex-wrap: wrap;
     justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }
 .messages{
     padding: 5vh;

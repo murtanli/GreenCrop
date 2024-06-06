@@ -14,4 +14,5 @@ urlpatterns = [
     path('monitoring_gr_hs/<int:greenhouse_id>', monitoring_gr_hs, name='monitoring_gr_hs'),
     path('save_db/<int:greenhouse_id>', save_db.as_view(), name='save_db'),
     path('test/', test, name='test'),
+    path('reports_view/', reports_view, name='reports_view'),
 ]
